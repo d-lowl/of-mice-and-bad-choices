@@ -1,8 +1,6 @@
 @tool
 extends Node2D
-
-const TILE_SIZE = 64
-const TILE_OFFSET = Vector2(TILE_SIZE / 2, TILE_SIZE / 2)
+class_name Mouse
 
 
 enum MouseType {
@@ -21,17 +19,7 @@ func _ready():
 func _process(delta):
 	$AnimatedSprite2D.animation = mouse_type
 	$AnimatedSprite2D.flip_h = not self.is_elder()
-	snap_to_grid()
-	
-func snap_to_grid():
-	set_tile_map_position(get_tile_map_position())
+	self.position = SnapUtils.snap_to_grid(self.position)
 
 func is_elder():
 	return mouse_type == "elder"
-	
-	
-func get_tile_map_position() -> Vector2:
-	return ((self.position - TILE_OFFSET) / TILE_SIZE).round()
-
-func set_tile_map_position(pos: Vector2):
-	self.position = pos * TILE_SIZE + TILE_OFFSET

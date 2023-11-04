@@ -1,0 +1,17 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bwvix2ueercdg"]
+
+[ext_resource type="Texture2D" uid="uid://f8i68edi6l2k" path="res://art/cheese/cheese.png" id="1_kclyf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nxmps"]
+texture = ExtResource("1_kclyf")
+texture_region_size = Vector2i(48, 48)
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:0/0 = 0
+
+[resource]
+tile_size = Vector2i(48, 48)
+sources/0 = SubResource("TileSetAtlasSource_nxmps")

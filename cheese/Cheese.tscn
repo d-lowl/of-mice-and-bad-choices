@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://3gsdm8cw3x4x"]
+
+[ext_resource type="Texture2D" uid="uid://f8i68edi6l2k" path="res://art/cheese/cheese.png" id="1_2ayig"]
+[ext_resource type="Script" path="res://cheese/Cheese.gd" id="1_tb5th"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_in10b"]
+atlas = ExtResource("1_2ayig")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00d2j"]
+atlas = ExtResource("1_2ayig")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6jap"]
+atlas = ExtResource("1_2ayig")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ba8p"]
+atlas = ExtResource("1_2ayig")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q82n2"]
+atlas = ExtResource("1_2ayig")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2m0ou"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_in10b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00d2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6jap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ba8p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q82n2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Cheese" type="Node2D"]
+position = Vector2(-32, -32)
+script = ExtResource("1_tb5th")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_2m0ou")
