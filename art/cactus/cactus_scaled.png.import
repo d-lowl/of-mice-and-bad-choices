@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjba218w8n8pk"
-path="res://.godot/imported/mouse.png-5809fbcd92cf4ce721c496ff6a271e51.ctex"
+uid="uid://dn8okrpoom2t2"
+path="res://.godot/imported/cactus_scaled.png-ce67c2431941eb58d6bc03f9c4a15f6d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/mouse/mouse.png"
-dest_files=["res://.godot/imported/mouse.png-5809fbcd92cf4ce721c496ff6a271e51.ctex"]
+source_file="res://art/cactus/cactus_scaled.png"
+dest_files=["res://.godot/imported/cactus_scaled.png-ce67c2431941eb58d6bc03f9c4a15f6d.ctex"]
 
 [params]
 
@@ -25,10 +25,10 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
