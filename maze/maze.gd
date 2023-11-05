@@ -8,17 +8,33 @@ enum GameState {
 var cheese_cursor_colour: Cheese.CheeseColour = Cheese.CheeseColour.YELLOW
 @export var level_index: = 0
 @export var levels: Array[PackedScene] = []
+@export var cheese_inventory = {
+	Cheese.CheeseColour.YELLOW: 0,
+	Cheese.CheeseColour.GREEN: 0,
+	Cheese.CheeseColour.RED: 0,
+	Cheese.CheeseColour.ORANGE: 0,
+	Cheese.CheeseColour.BLUE: 0,
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Map.load_level(levels[level_index])
+	cheese_inventory = ($Map.map as Level).cheese_inventory	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if state == GameState.PLACING:
 		draw_cheese_cursor()
-		
+	draw_inventory()
+	
+	
+func draw_inventory():
+	$CanvasLayer/YellowCheeseButton/Cheese.count = cheese_inventory[Cheese.CheeseColour.YELLOW]
+	$CanvasLayer/GreenCheeseButton/Cheese.count = cheese_inventory[Cheese.CheeseColour.GREEN]
+	$CanvasLayer/RedCheeseButton/Cheese.count = cheese_inventory[Cheese.CheeseColour.RED]
+	$CanvasLayer/OrangeCheeseButton/Cheese.count = cheese_inventory[Cheese.CheeseColour.ORANGE]
+	$CanvasLayer/BlueCheeseButton/Cheese.count = cheese_inventory[Cheese.CheeseColour.BLUE]
 
 
 func _on_navigation_step_pressed():
@@ -63,13 +79,26 @@ func _unhandled_key_input(event):
 		if event.keycode == KEY_SPACE:
 			_on_navigation_step_pressed()
 
+func add_cheese(position: Vector2, colour: Cheese.CheeseColour):
+	if cheese_inventory[colour] <= 0:
+		return  # No cheese left
+	var placed = $Map.add_cheese(position, colour)
+	if placed:
+		cheese_inventory[colour] -= 1
+		
+func remove_cheese(position: Vector2):
+	var removed = $Map.remove_cheese(position)
+	if removed != Cheese.CheeseColour.NONE:
+		cheese_inventory[removed] += 1
+	
+
 func _unhandled_input(event: InputEvent):
 	if state == GameState.PLACING:
 		if event is InputEventMouseButton and event.pressed:
 			if event.button_index == MOUSE_BUTTON_LEFT:
-				$Map.add_cheese(SnapUtils.get_tile_map_position(get_local_mouse_position()), cheese_cursor_colour)
+				add_cheese(SnapUtils.get_tile_map_position(get_local_mouse_position()), cheese_cursor_colour)
 			elif event.button_index == MOUSE_BUTTON_RIGHT:
-				$Map.remove_cheese(SnapUtils.get_tile_map_position(get_local_mouse_position()))
+				remove_cheese(SnapUtils.get_tile_map_position(get_local_mouse_position()))
 
 func _on_ui_choose_cheese_colour(colour):
 	cheese_cursor_colour = colour
@@ -84,5 +113,11 @@ func _on_hints_button_button_up():
 
 
 func _on_map_level_complete():
+	load_next_level()
+	
+func load_next_level():
+	$CanvasLayer/PlayButton.text = "Play [SPACE]"
 	level_index += 1
 	$Map.load_level(levels[level_index])
+	$Map.reset()
+	cheese_inventory = ($Map.map as Level).cheese_inventory

@@ -7,7 +7,8 @@ enum CheeseColour {
 	GREEN = 1,
 	RED = 2,
 	ORANGE = 3,
-	BLUE = 4
+	BLUE = 4,
+	NONE = -1
 }
 
 @export var colour: CheeseColour = CheeseColour.YELLOW

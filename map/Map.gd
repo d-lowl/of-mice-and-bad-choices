@@ -4,7 +4,6 @@ signal level_complete
 
 @export var is_playing: bool = false
 
-
 const FLOOR_TILE = Vector2i(0, 0)
 const CACTUS_TILE = Vector2i(0, 0)
 
@@ -60,21 +59,26 @@ func can_place_cheese(location: Vector2, colour: Cheese.CheeseColour) -> bool:
 		return false
 
 
-func add_cheese(location: Vector2, colour: Cheese.CheeseColour):
+func add_cheese(location: Vector2, colour: Cheese.CheeseColour) -> bool:
 	var cell: CellStruct = get_cell(location)
 	if cell != null:
 		var cheese: Cheese = cell.add_cheese(colour)
-		if cheese != null and not cheese.is_inside_tree():
-			cheese.position = SnapUtils.set_tile_map_position(location)
-			self.map.add_child(cheese)
-	recalculate_influence()
-			
-			
-func remove_cheese(location: Vector2):
+		if cheese != null:
+			if not cheese.is_inside_tree():
+				cheese.position = SnapUtils.set_tile_map_position(location)
+				self.map.add_child(cheese)
+			recalculate_influence()
+			return true
+	return false
+
+func remove_cheese(location: Vector2) -> Cheese.CheeseColour:
 	var cell: CellStruct = get_cell(location)
 	if cell != null:
-		cell.remove_cheese()
-	recalculate_influence()	
+		var removed = cell.remove_cheese()
+		if removed != Cheese.CheeseColour.NONE:
+			recalculate_influence()
+			return removed
+	return Cheese.CheeseColour.NONE
 		
 		
 func recalculate_influence():

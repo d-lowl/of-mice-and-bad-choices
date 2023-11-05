@@ -118,7 +118,7 @@ texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_888dm")
 animation = &"young_crying"
-frame_progress = 0.455141
+frame_progress = 0.273006
 flip_h = true
 
 [node name="Cheese" parent="." instance=ExtResource("3_2v1an")]

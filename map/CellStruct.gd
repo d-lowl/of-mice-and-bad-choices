@@ -56,13 +56,16 @@ func add_cheese(colour: Cheese.CheeseColour):
 			cheese_entity.count += 1
 		return cheese_entity
 		
-func remove_cheese():
+func remove_cheese() -> Cheese.CheeseColour:
 	if has_cheese() and not self.is_spawn:
+		var colour = cheese_entity.colour
 		cheese_entity.count -= 1
 		if cheese_entity.count <= 0:
 			cheese_entity.remove_from_group("cheese")
 			cheese_entity.queue_free()
 			cheese_entity = null
+		return colour
+	return Cheese.CheeseColour.NONE
 
 func mark_elder():
 	see_elder = true
