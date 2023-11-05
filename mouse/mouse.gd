@@ -9,6 +9,7 @@ enum MouseType {
 	Elder
 }
 @export_enum("young", "young_crying", "elder") var mouse_type: String = "young"
+@export var cheese_preference: Cheese.CheeseColour = Cheese.CheeseColour.YELLOW
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,6 +21,11 @@ func _process(delta):
 	$AnimatedSprite2D.animation = mouse_type
 	$AnimatedSprite2D.flip_h = not self.is_elder()
 	self.position = SnapUtils.snap_to_grid(self.position)
-
+	if not is_elder() and cheese_preference != null:
+		$Cheese.visible = true
+		$Cheese.colour = cheese_preference
+	else:
+		$Cheese.visible = false
+		
 func is_elder():
 	return mouse_type == "elder"

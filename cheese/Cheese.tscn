@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://3gsdm8cw3x4x"]
+[gd_scene load_steps=10 format=3 uid="uid://3gsdm8cw3x4x"]
 
 [ext_resource type="Texture2D" uid="uid://f8i68edi6l2k" path="res://art/cheese/cheese.png" id="1_2ayig"]
 [ext_resource type="Script" path="res://cheese/Cheese.gd" id="1_tb5th"]
+[ext_resource type="Theme" uid="uid://obkqpiyh8l33" path="res://ui_theme.tres" id="3_d58oa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_in10b"]
 atlas = ExtResource("1_2ayig")
@@ -49,7 +50,27 @@ animations = [{
 [node name="Cheese" type="Node2D"]
 position = Vector2(-32, -32)
 script = ExtResource("1_tb5th")
+count = null
+show_count = true
+snap = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_2m0ou")
+
+[node name="CountLabels" type="Label" parent="AnimatedSprite2D"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -47.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("3_d58oa")
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2

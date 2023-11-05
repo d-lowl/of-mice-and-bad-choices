@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dq5t5gft6ma7h"]
+[gd_scene load_steps=3 format=3 uid="uid://dq5t5gft6ma7h"]
 
 [ext_resource type="TileSet" uid="uid://d230r60rhbs62" path="res://maze/maze_tileset.tres" id="1_a2jvk"]
+[ext_resource type="PackedScene" uid="uid://b2426leq2msmq" path="res://mouse/mouse.tscn" id="2_lpwey"]
 
 [node name="Level0" type="TileMap"]
 z_index = -2
@@ -16,3 +17,6 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(393226, 1, 0)
+
+[node name="Mouse" parent="." instance=ExtResource("2_lpwey")]
+position = Vector2(672, 416)

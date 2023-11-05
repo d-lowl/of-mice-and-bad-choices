@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://b2426leq2msmq"]
+[gd_scene load_steps=17 format=3 uid="uid://b2426leq2msmq"]
 
 [ext_resource type="Script" path="res://mouse/mouse.gd" id="1_wrosr"]
 [ext_resource type="Texture2D" uid="uid://bjba218w8n8pk" path="res://art/mouse/mouse.png" id="2_nuyvc"]
+[ext_resource type="PackedScene" uid="uid://3gsdm8cw3x4x" path="res://cheese/Cheese.tscn" id="3_2v1an"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_svlha"]
 atlas = ExtResource("2_nuyvc")
@@ -115,5 +116,12 @@ texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_888dm")
 animation = &"young_crying"
-frame_progress = 0.590563
+frame_progress = 0.831143
 flip_h = true
+
+[node name="Cheese" parent="." instance=ExtResource("3_2v1an")]
+position = Vector2(0, -32)
+scale = Vector2(0.5, 0.5)
+count = 1
+show_count = false
+snap = false

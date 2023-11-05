@@ -228,6 +228,9 @@ frame = 4
 [node name="CheeseCursor" parent="." instance=ExtResource("6_plrxg")]
 modulate = Color(1, 1, 1, 0.470588)
 position = Vector2(288, 416)
+count = 1
+show_count = false
+snap = true
 
 [connection signal="choose_cheese_colour" from="CanvasLayer" to="." method="_on_ui_choose_cheese_colour"]
 [connection signal="pressed" from="CanvasLayer/NavigationStep" to="." method="_on_navigation_step_pressed"]

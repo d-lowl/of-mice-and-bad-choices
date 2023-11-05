@@ -30,9 +30,8 @@ func _on_navigation_step_pressed():
 func draw_cheese_cursor():
 	var cursor: Cheese = $CheeseCursor
 	var grid_position = SnapUtils.get_tile_map_position(get_local_mouse_position())
-	var tile: Vector2i = ($Map.map as TileMap).get_cell_atlas_coords(0, grid_position)
-	if grid_position.x > 2 and tile == Vector2i(0, 0):
-		cursor.position = SnapUtils.snap_to_grid(get_local_mouse_position())		
+	if grid_position.x > 2 and $Map.can_place_cheese(grid_position, cheese_cursor_colour):
+		cursor.position = SnapUtils.snap_to_grid(get_local_mouse_position())
 		
 	cursor.colour = cheese_cursor_colour
 
@@ -56,6 +55,9 @@ func _unhandled_input(event: InputEvent):
 		if event is InputEventMouseButton and event.pressed:
 			if event.button_index == MOUSE_BUTTON_LEFT:
 				print("Place ", cheese_cursor_colour, SnapUtils.get_tile_map_position($CheeseCursor.position))
+				$Map.add_cheese(SnapUtils.get_tile_map_position($CheeseCursor.position), cheese_cursor_colour)
 
 func _on_ui_choose_cheese_colour(colour):
 	cheese_cursor_colour = colour
+	
+	
