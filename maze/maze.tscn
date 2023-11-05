@@ -60,6 +60,7 @@ script = ExtResource("1_b040o")
 [node name="ElderMouse" parent="." instance=ExtResource("2_xw0hm")]
 position = Vector2(96, 416)
 mouse_type = "elder"
+spawn_position = Vector2(96, 416)
 
 [node name="Map" parent="." instance=ExtResource("3_kjkfn")]
 
@@ -68,15 +69,17 @@ mouse_type = "elder"
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("5_w6u6f")
 
-[node name="NavigationStep" type="Button" parent="CanvasLayer"]
+[node name="PlayButton" type="Button" parent="CanvasLayer"]
+texture_filter = 1
 offset_left = 69.0
 offset_top = 80.0
 offset_right = 114.0
 offset_bottom = 104.0
 theme = ExtResource("5_c0u62")
-text = "Step"
+text = "Play [SPACE]"
 
 [node name="YellowCheeseButton" type="Control" parent="CanvasLayer"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = 414.0
@@ -85,6 +88,7 @@ offset_right = 414.0
 offset_bottom = 115.0
 
 [node name="Button" type="Button" parent="CanvasLayer/YellowCheeseButton"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -106,6 +110,7 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_mehe8")
 
 [node name="GreenCheeseButton" type="Control" parent="CanvasLayer"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = 502.0
@@ -136,6 +141,7 @@ sprite_frames = SubResource("SpriteFrames_mehe8")
 frame = 1
 
 [node name="RedCheeseButton" type="Control" parent="CanvasLayer"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = 591.0
@@ -144,6 +150,7 @@ offset_right = 591.0
 offset_bottom = 115.0
 
 [node name="Button" type="Button" parent="CanvasLayer/RedCheeseButton"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -166,6 +173,7 @@ sprite_frames = SubResource("SpriteFrames_mehe8")
 frame = 2
 
 [node name="OrangeCheeseButton" type="Control" parent="CanvasLayer"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = 680.0
@@ -196,6 +204,7 @@ sprite_frames = SubResource("SpriteFrames_mehe8")
 frame = 3
 
 [node name="BlueCheeseButton" type="Control" parent="CanvasLayer"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = 771.0
@@ -225,17 +234,26 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_mehe8")
 frame = 4
 
+[node name="HintsButton" type="Button" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 26.0
+offset_top = 110.0
+offset_right = 166.0
+offset_bottom = 141.0
+theme = ExtResource("5_c0u62")
+text = "Show Hints [TAB]"
+
 [node name="CheeseCursor" parent="." instance=ExtResource("6_plrxg")]
 modulate = Color(1, 1, 1, 0.470588)
 position = Vector2(288, 416)
-count = 1
 show_count = false
-snap = true
 
 [connection signal="choose_cheese_colour" from="CanvasLayer" to="." method="_on_ui_choose_cheese_colour"]
-[connection signal="pressed" from="CanvasLayer/NavigationStep" to="." method="_on_navigation_step_pressed"]
+[connection signal="pressed" from="CanvasLayer/PlayButton" to="." method="_on_navigation_step_pressed"]
 [connection signal="pressed" from="CanvasLayer/YellowCheeseButton/Button" to="CanvasLayer" method="_on_yellow_cheese_pressed"]
 [connection signal="pressed" from="CanvasLayer/GreenCheeseButton/Button" to="CanvasLayer" method="_on_green_cheese_pressed"]
 [connection signal="pressed" from="CanvasLayer/RedCheeseButton/Button" to="CanvasLayer" method="_on_red_cheese_pressed"]
 [connection signal="pressed" from="CanvasLayer/OrangeCheeseButton/Button" to="CanvasLayer" method="_on_orange_cheese_pressed"]
 [connection signal="pressed" from="CanvasLayer/BlueCheeseButton/Button" to="CanvasLayer" method="_on_blue_cheese_pressed"]
+[connection signal="button_down" from="CanvasLayer/HintsButton" to="." method="_on_hints_button_button_down"]
+[connection signal="button_up" from="CanvasLayer/HintsButton" to="." method="_on_hints_button_button_up"]

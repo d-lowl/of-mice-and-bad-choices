@@ -20,23 +20,31 @@ func _process(delta):
 
 
 func _on_navigation_step_pressed():
-	var mice: Array[Node] = get_tree().get_nodes_in_group("young_mouse")
-	for mouse in mice:
-		if mouse is Mouse:
-			print(mouse)
-			
+	if not $Map.is_playing:
+		$CanvasLayer/PlayButton.text = "Reset [SPACE]"
+		$Map.play()
+	else:
+		$CanvasLayer/PlayButton.text = "Play [SPACE]"
+		$Map.reset()
 
 
 func draw_cheese_cursor():
 	var cursor: Cheese = $CheeseCursor
 	var grid_position = SnapUtils.get_tile_map_position(get_local_mouse_position())
 	if grid_position.x > 2 and $Map.can_place_cheese(grid_position, cheese_cursor_colour):
+		cursor.visible = true
 		cursor.position = SnapUtils.snap_to_grid(get_local_mouse_position())
+		cursor.colour = cheese_cursor_colour
+	else:
+		cursor.visible = false
 		
-	cursor.colour = cheese_cursor_colour
 
 
 func _unhandled_key_input(event):
+	if event.keycode == KEY_TAB:
+		$Map.show_hints(event.pressed)
+			
+		
 	if event.is_pressed():
 		if state == GameState.PLACING:
 			if event.keycode == KEY_1:
@@ -49,15 +57,25 @@ func _unhandled_key_input(event):
 				cheese_cursor_colour = Cheese.CheeseColour.ORANGE
 			elif event.keycode == KEY_5:
 				cheese_cursor_colour = Cheese.CheeseColour.BLUE
+		
+		if event.keycode == KEY_SPACE:
+			_on_navigation_step_pressed()
 
 func _unhandled_input(event: InputEvent):
 	if state == GameState.PLACING:
 		if event is InputEventMouseButton and event.pressed:
 			if event.button_index == MOUSE_BUTTON_LEFT:
-				print("Place ", cheese_cursor_colour, SnapUtils.get_tile_map_position($CheeseCursor.position))
-				$Map.add_cheese(SnapUtils.get_tile_map_position($CheeseCursor.position), cheese_cursor_colour)
+				$Map.add_cheese(SnapUtils.get_tile_map_position(get_local_mouse_position()), cheese_cursor_colour)
+			elif event.button_index == MOUSE_BUTTON_RIGHT:
+				$Map.remove_cheese(SnapUtils.get_tile_map_position(get_local_mouse_position()))
 
 func _on_ui_choose_cheese_colour(colour):
 	cheese_cursor_colour = colour
-	
-	
+
+
+func _on_hints_button_button_down():
+	$Map.show_hints(true)
+
+
+func _on_hints_button_button_up():
+	$Map.show_hints(false)

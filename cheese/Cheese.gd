@@ -41,4 +41,6 @@ func _process(delta):
 		self.position = SnapUtils.snap_to_grid(self.position)
 	$AnimatedSprite2D.frame = colour
 	$AnimatedSprite2D/CountLabels.visible = show_count
+	if show_count:
+		$AnimatedSprite2D/CountLabels.text = str(count)
 	

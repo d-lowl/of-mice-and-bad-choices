@@ -50,9 +50,7 @@ animations = [{
 [node name="Cheese" type="Node2D"]
 position = Vector2(-32, -32)
 script = ExtResource("1_tb5th")
-count = null
 show_count = true
-snap = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

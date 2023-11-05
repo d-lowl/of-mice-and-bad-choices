@@ -1,9 +1,11 @@
 extends Node2D
 
-signal mice_spawned(n: int)
+@export var is_playing: bool = false
 
 const FLOOR_TILE = Vector2i(0, 0)
+const CACTUS_TILE = Vector2i(0, 0)
 
+var mice_left: int = 0
 var grid: Array[Array] = []  # Array[Array[CellStruct]
 
 func initialise_grid(map: TileMap):
@@ -14,24 +16,96 @@ func initialise_grid(map: TileMap):
 		for y in range(rect.size.y):
 			grid[x].append(CellStruct.new())
 			var tile: Vector2i = map.get_cell_atlas_coords(0, Vector2i(x, y))
-			(grid[x][y] as CellStruct).is_path = tile == FLOOR_TILE
+			var item_tile: Vector2i = map.get_cell_atlas_coords(1, Vector2i(x, y))
+			var cell = (grid[x][y] as CellStruct)
+			cell.is_path = tile == FLOOR_TILE
+			cell.is_spawn = item_tile == CACTUS_TILE
+			map.add_child(cell.influence_hint)
+			cell.influence_hint.position = SnapUtils.set_tile_map_position(Vector2(x, y)) - Vector2(56/2, 56/2)
+			
+	recalculate_influence()	
 
 
 var map: TileMap
 
-func get_cell(location: Vector2) -> CellStruct:
-	return (self.grid[location.x][location.y] as CellStruct)
+func get_cell(location: Vector2i) -> CellStruct:
+	var x: int = int(location.x)
+	var y: int = int(location.y)
+	if x < 0 or y < 0:
+		return null
+	elif x < self.grid.size() and y < self.grid[x].size():
+		return (self.grid[x][y] as CellStruct)
+	else:
+		return null
 
 func can_place_cheese(location: Vector2, colour: Cheese.CheeseColour) -> bool:
-	return get_cell(location).can_place_cheese(colour)
+	if is_playing:
+		return false
+	var cell = get_cell(location)
+	if cell != null:
+		return cell.can_place_cheese(colour)
+	else:
+		return false
 
+
+func add_cheese(location: Vector2, colour: Cheese.CheeseColour):
+	var cell: CellStruct = get_cell(location)
+	if cell != null:
+		var cheese: Cheese = cell.add_cheese(colour)
+		if cheese != null and not cheese.is_inside_tree():
+			cheese.position = SnapUtils.set_tile_map_position(location)
+			self.map.add_child(cheese)
+	recalculate_influence()
+			
+			
+func remove_cheese(location: Vector2):
+	var cell: CellStruct = get_cell(location)
+	if cell != null:
+		cell.remove_cheese()
+	recalculate_influence()	
+		
+		
+func recalculate_influence():
+	var cheese_nodes: Array[Node] = get_tree().get_nodes_in_group("cheese")
+	
+	var rect: Rect2i = map.get_used_rect()
+	for x in range(rect.size.x):
+		for y in range(rect.size.y):
+			var cell: CellStruct = grid[x][y]
+			# Clear
+			for colour in cell.cheese_influence:
+				cell.cheese_influence[colour] = 0
+				
+			for cheese in cheese_nodes:
+				if cheese is Cheese:
+					var cheese_location = SnapUtils.get_tile_map_position(cheese.position)
+					var distance = abs(x - cheese_location.x) + abs(y - cheese_location.y)
+					if distance <= cheese.count:
+						cell.cheese_influence[cheese.colour] += cheese.count
+			
+			cell.update_hint()
+			
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.map = find_map()
 	assert(self.map != null)
 	initialise_grid(self.map)
-#	spawn_mice()
-	pass # Replace with function body.
+	mark_elder()
+	show_hints(false)
+	reset()
+
+
+func play():
+	is_playing = true
+	
+func reset():
+	is_playing = false
+	var mice: Array[Node] = get_tree().get_nodes_in_group("young_mouse")
+	for mouse in mice:
+		if mouse is Mouse:
+			mouse.reset()
+	mice_left = mice.size()
 
 
 func find_map() -> TileMap:
@@ -40,29 +114,43 @@ func find_map() -> TileMap:
 			return child
 			
 	return null
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
-func spawn_mice():
-	var mouse_scene = load("res://mouse/mouse.tscn")
-	var cacti_locations: Array[Vector2i] = self.map.get_used_cells_by_id(1, 1, Vector2(0,0))
-	for location in cacti_locations:
-		var mouse: Mouse = mouse_scene.instantiate()
-		mouse.position = SnapUtils.set_tile_map_position(location)
-		mouse.add_to_group("young_mouse")
-		self.add_child(mouse)
+	
+	
+func mark_elder():
+	var elder_mouse: Mouse = self.map.get_node("ElderMouse")
+	if elder_mouse != null:
+		var elder_mouse_location = SnapUtils.get_tile_map_position(elder_mouse.position)
+		# Look +x
+		var x: int = elder_mouse_location.x + 1
+		var cell: CellStruct = get_cell(Vector2i(x, elder_mouse_location.y))
+		while cell != null and cell.is_path:
+			cell.mark_elder()
+			x += 1
+			cell = get_cell(Vector2i(x, elder_mouse_location.y))
+			
+func show_hints(visible: bool):
+	var hints: Array[Node] = get_tree().get_nodes_in_group("ui_hints")
+	for hint in hints:
+		hint.visible = visible
 		
-	emit_signal("mice_spawned", cacti_locations.size())
+func move_mice():
+	var mice: Array[Node] = get_tree().get_nodes_in_group("young_mouse")
+	for mouse in mice:
+		if mouse is Mouse:
+			move_mouse(mouse)
 
+func move_mouse(mouse: Mouse):
+	var mouse_location = SnapUtils.get_tile_map_position(mouse.position)
+	if mouse_location.x <= 2:
+		mouse.visible = false
+		mice_left -= 1
+		return
+	
+	var cell = get_cell(mouse_location)
+	if cell.see_elder:
+		mouse_location.x -= 1
+		mouse.position = SnapUtils.set_tile_map_position(mouse_location)
 
-func add_cheese(location: Vector2, colour: Cheese.CheeseColour):
-	var cheese_scene = load("res://cheese/Cheese.tscn")
-	var cheese: Cheese = cheese_scene.instantiate()
-	cheese.colour = colour
-	cheese.position = SnapUtils.set_tile_map_position(location)
-	cheese.add_to_group("cheese")
-	add_child(cheese)
+func _on_step_timer_timeout():
+	if is_playing:
+		move_mice()

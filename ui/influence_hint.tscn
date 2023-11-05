@@ -1,0 +1,105 @@
+[gd_scene load_steps=3 format=3 uid="uid://c10ytmmcvymsa"]
+
+[ext_resource type="Script" path="res://ui/influence_hint.gd" id="1_1ybgf"]
+[ext_resource type="Theme" uid="uid://obkqpiyh8l33" path="res://ui_theme.tres" id="1_vtp4o"]
+
+[node name="InfluenceHint" type="Control" groups=["ui_hints"]]
+z_index = 4096
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 28.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_1ybgf")
+
+[node name="YellowLabel" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_vtp4o")
+theme_override_colors/font_color = Color(0.976471, 0.843137, 0.121569, 1)
+text = "0"
+
+[node name="GreenLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = ExtResource("1_vtp4o")
+theme_override_colors/font_color = Color(0.6, 0.898039, 0.313726, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="RedLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme = ExtResource("1_vtp4o")
+theme_override_colors/font_color = Color(0.85098, 0.341176, 0.388235, 1)
+text = "0"
+horizontal_alignment = 2
+
+[node name="OrangeLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 40.0
+offset_bottom = 11.5
+grow_vertical = 2
+theme = ExtResource("1_vtp4o")
+theme_override_colors/font_color = Color(0.87451, 0.443137, 0.14902, 1)
+text = "0"
+vertical_alignment = 1
+
+[node name="BlueLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_vtp4o")
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ElderLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_vtp4o")
+text = "See!"
+horizontal_alignment = 1
+vertical_alignment = 2

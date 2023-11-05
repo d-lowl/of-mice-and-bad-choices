@@ -110,18 +110,21 @@ animations = [{
 position = Vector2(-32, -32)
 script = ExtResource("1_wrosr")
 mouse_type = "young_crying"
+spawn_position = Vector2(-32, -32)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_888dm")
 animation = &"young_crying"
-frame_progress = 0.831143
+frame_progress = 0.833369
 flip_h = true
 
 [node name="Cheese" parent="." instance=ExtResource("3_2v1an")]
 position = Vector2(0, -32)
 scale = Vector2(0.5, 0.5)
-count = 1
 show_count = false
 snap = false
+
+[node name="StepTimer" type="Timer" parent="."]
+wait_time = 0.5
