@@ -107,6 +107,7 @@ animations = [{
 }]
 
 [node name="Mouse" type="Node2D"]
+z_index = 2
 position = Vector2(-32, -32)
 script = ExtResource("1_wrosr")
 mouse_type = "young_crying"
@@ -117,7 +118,7 @@ texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_888dm")
 animation = &"young_crying"
-frame_progress = 0.833369
+frame_progress = 0.455141
 flip_h = true
 
 [node name="Cheese" parent="." instance=ExtResource("3_2v1an")]

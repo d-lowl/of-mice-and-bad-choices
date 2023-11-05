@@ -36,4 +36,11 @@ func is_elder():
 func reset():
 	self.position = SnapUtils.snap_to_grid(spawn_position)
 	self.visible = true
+	self.mouse_type = "young_crying"
 	
+	
+func set_crying(is_crying: bool):
+	if is_crying and mouse_type == "young":
+		mouse_type = "young_crying"
+	elif not is_crying and mouse_type == "young_crying":
+		mouse_type = "young"

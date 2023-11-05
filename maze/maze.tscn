@@ -1,9 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://ds2akc48ahha8"]
+[gd_scene load_steps=18 format=3 uid="uid://ds2akc48ahha8"]
 
 [ext_resource type="Script" path="res://maze/maze.gd" id="1_b040o"]
+[ext_resource type="PackedScene" uid="uid://crkoxgceel0nd" path="res://levels/level0.tscn" id="2_bood3"]
 [ext_resource type="PackedScene" uid="uid://b2426leq2msmq" path="res://mouse/mouse.tscn" id="2_xw0hm"]
+[ext_resource type="PackedScene" uid="uid://dsfau8cwex7mv" path="res://levels/level2.tscn" id="3_d7b3d"]
 [ext_resource type="PackedScene" uid="uid://cia1udlihyjna" path="res://map/map.tscn" id="3_kjkfn"]
-[ext_resource type="PackedScene" uid="uid://dq5t5gft6ma7h" path="res://levels/level0.tscn" id="4_pnvqn"]
+[ext_resource type="PackedScene" uid="uid://iobefrae8kws" path="res://levels/level3.tscn" id="4_12jy3"]
 [ext_resource type="Theme" uid="uid://obkqpiyh8l33" path="res://ui_theme.tres" id="5_c0u62"]
 [ext_resource type="Script" path="res://maze/UI.gd" id="5_w6u6f"]
 [ext_resource type="Texture2D" uid="uid://f8i68edi6l2k" path="res://art/cheese/cheese.png" id="6_3m0o3"]
@@ -56,6 +58,7 @@ animations = [{
 
 [node name="Maze" type="Node2D"]
 script = ExtResource("1_b040o")
+levels = Array[PackedScene]([ExtResource("2_bood3"), ExtResource("3_d7b3d"), ExtResource("4_12jy3")])
 
 [node name="ElderMouse" parent="." instance=ExtResource("2_xw0hm")]
 position = Vector2(96, 416)
@@ -63,8 +66,6 @@ mouse_type = "elder"
 spawn_position = Vector2(96, 416)
 
 [node name="Map" parent="." instance=ExtResource("3_kjkfn")]
-
-[node name="Level0" parent="Map" instance=ExtResource("4_pnvqn")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("5_w6u6f")
@@ -248,6 +249,7 @@ modulate = Color(1, 1, 1, 0.470588)
 position = Vector2(288, 416)
 show_count = false
 
+[connection signal="level_complete" from="Map" to="." method="_on_map_level_complete"]
 [connection signal="choose_cheese_colour" from="CanvasLayer" to="." method="_on_ui_choose_cheese_colour"]
 [connection signal="pressed" from="CanvasLayer/PlayButton" to="." method="_on_navigation_step_pressed"]
 [connection signal="pressed" from="CanvasLayer/YellowCheeseButton/Button" to="CanvasLayer" method="_on_yellow_cheese_pressed"]

@@ -30,6 +30,13 @@ func get_colour() -> Cheese.CheeseColour:
 
 func has_cheese() -> bool:
 	return cheese_entity != null and cheese_entity.count > 0
+	
+func has_influence() -> bool:
+	for colour in cheese_influence:
+		if cheese_influence[colour] > 0:
+			return true
+			
+	return false
 
 func can_place_cheese(colour: Cheese.CheeseColour) -> bool:
 	return (
@@ -63,3 +70,15 @@ func mark_elder():
 	
 func update_hint():
 	influence_hint.update(cheese_influence)
+
+func is_priority_colour(interest_colour: Cheese.CheeseColour):
+	if not has_influence():
+		return false
+		
+	var influence = cheese_influence[interest_colour]
+	for colour in cheese_influence:
+		if colour == interest_colour:
+			continue
+		if cheese_influence[colour] >= influence:
+			return false
+	return true

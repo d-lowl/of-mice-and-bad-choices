@@ -6,10 +6,12 @@ enum GameState {
 
 @export var state = GameState.PLACING
 var cheese_cursor_colour: Cheese.CheeseColour = Cheese.CheeseColour.YELLOW
+@export var level_index: = 0
+@export var levels: Array[PackedScene] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Map.load_level(levels[level_index])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -79,3 +81,8 @@ func _on_hints_button_button_down():
 
 func _on_hints_button_button_up():
 	$Map.show_hints(false)
+
+
+func _on_map_level_complete():
+	level_index += 1
+	$Map.load_level(levels[level_index])
