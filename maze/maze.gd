@@ -118,6 +118,9 @@ func _on_map_level_complete():
 func load_next_level():
 	$CanvasLayer/PlayButton.text = "Play [SPACE]"
 	level_index += 1
+	if level_index >= levels.size():
+		$CanvasLayer/FinalePanel.visible = true
+		return
 	$Map.load_level(levels[level_index])
 	$Map.reset()
 	cheese_inventory = ($Map.map as Level).cheese_inventory
