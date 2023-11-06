@@ -184,7 +184,9 @@ func move_mice():
 			moved = true
 			move_mouse(mouse)
 			
+	$StepTimer/TickTockAudio.play()	
 	if not moved:
+		is_playing = false
 		emit_signal("level_complete")
 
 func move_mouse(mouse: Mouse):
@@ -206,8 +208,11 @@ func move_mouse(mouse: Mouse):
 	elif cell.is_priority_colour(mouse.cheese_preference):
 		var target = find_max_influence(mouse_location, mouse.cheese_preference)
 		var path = astar.get_id_path(mouse_location, target)
-		mouse.position = SnapUtils.set_tile_map_position(path[1])
-		mouse.set_crying(false)
+		if path.size() > 1:
+			mouse.position = SnapUtils.set_tile_map_position(path[1])
+			mouse.set_crying(false)
+		else:
+			mouse.set_crying(true)
 		
 
 func _on_step_timer_timeout():

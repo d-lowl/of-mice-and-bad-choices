@@ -1,19 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://ds2akc48ahha8"]
+[gd_scene load_steps=15 format=3 uid="uid://ds2akc48ahha8"]
 
 [ext_resource type="Script" path="res://maze/maze.gd" id="1_b040o"]
 [ext_resource type="PackedScene" uid="uid://crkoxgceel0nd" path="res://levels/tutorial0.tscn" id="2_ecgcc"]
 [ext_resource type="PackedScene" uid="uid://b2426leq2msmq" path="res://mouse/mouse.tscn" id="2_xw0hm"]
 [ext_resource type="PackedScene" uid="uid://nepafjr182my" path="res://levels/tutorial1.tscn" id="3_k5jtk"]
 [ext_resource type="PackedScene" uid="uid://cia1udlihyjna" path="res://map/map.tscn" id="3_kjkfn"]
+[ext_resource type="PackedScene" uid="uid://co0l66mivtnwa" path="res://levels/tutorial2.tscn" id="4_053ck"]
 [ext_resource type="Theme" uid="uid://obkqpiyh8l33" path="res://ui_theme.tres" id="5_c0u62"]
+[ext_resource type="PackedScene" uid="uid://dv61g7tmtrlnq" path="res://levels/tutorial3.tscn" id="5_tga63"]
 [ext_resource type="Script" path="res://maze/UI.gd" id="5_w6u6f"]
 [ext_resource type="PackedScene" uid="uid://3gsdm8cw3x4x" path="res://cheese/Cheese.tscn" id="6_plrxg"]
+[ext_resource type="AudioStream" uid="uid://mcaieb78uta" path="res://sound/end_level.wav" id="11_yf1kg"]
+[ext_resource type="AudioStream" uid="uid://dr2s542xkr05h" path="res://sound/good.wav" id="12_4xner"]
+[ext_resource type="AudioStream" uid="uid://71ynhfr5fu0j" path="res://sound/bad.wav" id="13_jaect"]
 
 [sub_resource type="Shortcut" id="Shortcut_wl6qt"]
 
 [node name="Maze" type="Node2D"]
 script = ExtResource("1_b040o")
-levels = Array[PackedScene]([ExtResource("2_ecgcc"), ExtResource("3_k5jtk")])
+levels = Array[PackedScene]([ExtResource("2_ecgcc"), ExtResource("3_k5jtk"), ExtResource("4_053ck"), ExtResource("5_tga63")])
 
 [node name="ElderMouse" parent="." instance=ExtResource("2_xw0hm")]
 position = Vector2(96, 416)
@@ -227,7 +232,7 @@ offset_right = 81.5
 offset_bottom = 39.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "That's as far as I got with level design, thanks for playing"
+text = "That's as far as I got with the level design, thanks for playing"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -235,6 +240,15 @@ autowrap_mode = 2
 modulate = Color(1, 1, 1, 0.470588)
 position = Vector2(288, 416)
 show_count = false
+
+[node name="EndLevelPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_yf1kg")
+
+[node name="GoodPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_4xner")
+
+[node name="BadPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_jaect")
 
 [connection signal="level_complete" from="Map" to="." method="_on_map_level_complete"]
 [connection signal="choose_cheese_colour" from="CanvasLayer" to="." method="_on_ui_choose_cheese_colour"]
