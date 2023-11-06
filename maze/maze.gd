@@ -80,6 +80,8 @@ func _unhandled_key_input(event):
 			_on_navigation_step_pressed()
 
 func add_cheese(position: Vector2, colour: Cheese.CheeseColour):
+	if $Map.is_playing:
+		return
 	if cheese_inventory[colour] <= 0:
 		$BadPlayer.play()
 		return  # No cheese left
@@ -91,6 +93,8 @@ func add_cheese(position: Vector2, colour: Cheese.CheeseColour):
 		$BadPlayer.play()
 		
 func remove_cheese(position: Vector2):
+	if $Map.is_playing:
+		return
 	var removed = $Map.remove_cheese(position)
 	if removed != Cheese.CheeseColour.NONE:
 		cheese_inventory[removed] += 1

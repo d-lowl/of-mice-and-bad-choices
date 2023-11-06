@@ -1,15 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://ds2akc48ahha8"]
+[gd_scene load_steps=18 format=3 uid="uid://ds2akc48ahha8"]
 
 [ext_resource type="Script" path="res://maze/maze.gd" id="1_b040o"]
 [ext_resource type="PackedScene" uid="uid://crkoxgceel0nd" path="res://levels/tutorial0.tscn" id="2_ecgcc"]
-[ext_resource type="PackedScene" uid="uid://b2426leq2msmq" path="res://mouse/mouse.tscn" id="2_xw0hm"]
-[ext_resource type="PackedScene" uid="uid://nepafjr182my" path="res://levels/tutorial1.tscn" id="3_k5jtk"]
+[ext_resource type="PackedScene" uid="uid://co0l66mivtnwa" path="res://levels/tutorial1.tscn" id="3_k5jtk"]
 [ext_resource type="PackedScene" uid="uid://cia1udlihyjna" path="res://map/map.tscn" id="3_kjkfn"]
-[ext_resource type="PackedScene" uid="uid://co0l66mivtnwa" path="res://levels/tutorial2.tscn" id="4_053ck"]
+[ext_resource type="PackedScene" uid="uid://dlovg4pu2sgjm" path="res://levels/tutorial2.tscn" id="4_053ck"]
 [ext_resource type="Theme" uid="uid://obkqpiyh8l33" path="res://ui_theme.tres" id="5_c0u62"]
 [ext_resource type="PackedScene" uid="uid://dv61g7tmtrlnq" path="res://levels/tutorial3.tscn" id="5_tga63"]
 [ext_resource type="Script" path="res://maze/UI.gd" id="5_w6u6f"]
 [ext_resource type="PackedScene" uid="uid://3gsdm8cw3x4x" path="res://cheese/Cheese.tscn" id="6_plrxg"]
+[ext_resource type="PackedScene" uid="uid://nepafjr182my" path="res://levels/blocked.tscn" id="6_qydhf"]
+[ext_resource type="PackedScene" uid="uid://c2a07ng3c5qck" path="res://levels/spiky_path.tscn" id="7_i8t31"]
+[ext_resource type="PackedScene" uid="uid://bkjvsjnga2meo" path="res://levels/squiggly_line.tscn" id="8_ccbcy"]
+[ext_resource type="PackedScene" uid="uid://deogt8g5h2kyr" path="res://levels/who_did_it.tscn" id="9_ny82r"]
 [ext_resource type="AudioStream" uid="uid://mcaieb78uta" path="res://sound/end_level.wav" id="11_yf1kg"]
 [ext_resource type="AudioStream" uid="uid://dr2s542xkr05h" path="res://sound/good.wav" id="12_4xner"]
 [ext_resource type="AudioStream" uid="uid://71ynhfr5fu0j" path="res://sound/bad.wav" id="13_jaect"]
@@ -18,12 +21,7 @@
 
 [node name="Maze" type="Node2D"]
 script = ExtResource("1_b040o")
-levels = Array[PackedScene]([ExtResource("2_ecgcc"), ExtResource("3_k5jtk"), ExtResource("4_053ck"), ExtResource("5_tga63")])
-
-[node name="ElderMouse" parent="." instance=ExtResource("2_xw0hm")]
-position = Vector2(96, 416)
-mouse_type = "elder"
-spawn_position = Vector2(96, 416)
+levels = Array[PackedScene]([ExtResource("2_ecgcc"), ExtResource("3_k5jtk"), ExtResource("4_053ck"), ExtResource("5_tga63"), ExtResource("6_qydhf"), ExtResource("7_i8t31"), ExtResource("8_ccbcy"), ExtResource("9_ny82r")])
 
 [node name="Map" parent="." instance=ExtResource("3_kjkfn")]
 

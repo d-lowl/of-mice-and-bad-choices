@@ -68,7 +68,7 @@ grow_horizontal = 2
 theme = ExtResource("5_gf4w5")
 text = "Young mice will go towards the largest amount of their prefferred cheese
 
-Place enough cheese on the direct path towards thier elder"
+The more cheese you place (see index), the stronger and the further the smell "
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -88,7 +88,32 @@ grow_vertical = 0
 theme = ExtResource("5_gf4w5")
 text = "Gotcha"
 
-[node name="Cheese" parent="." instance=ExtResource("6_aayao")]
+[node name="Heading" type="Panel" parent="Tutorial2"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -236.0
+offset_top = 16.0
+offset_right = 237.0
+offset_bottom = 64.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Tutorial2/Heading"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -79.5
+offset_top = 5.0
+offset_right = 80.5
+offset_bottom = 44.0
+grow_horizontal = 2
+theme = ExtResource("5_gf4w5")
+theme_override_font_sizes/font_size = 36
+text = "Wrong way"
+horizontal_alignment = 1
+
+[node name="Cheese" parent="." groups=["cheese"] instance=ExtResource("6_aayao")]
 position = Vector2(608, 224)
 colour = 2
 count = 2

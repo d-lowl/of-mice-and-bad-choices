@@ -116,6 +116,8 @@ func find_max_influence(position: Vector2, colour: Cheese.CheeseColour) -> Vecto
 	return chosen_position
 
 func load_level(level_scene: PackedScene):
+	for cheese in get_tree().get_nodes_in_group("cheese"):
+		cheese.remove_from_group("cheese")  # To prevent leaking to the next level
 	for child in get_children():
 		if child is Timer:
 			continue
