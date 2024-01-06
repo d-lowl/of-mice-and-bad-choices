@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Map
+
 signal level_complete
 
 @export var is_playing: bool = false
