@@ -1,4 +1,4 @@
-extends RefCounted
+extends Node
 class_name CellStruct
 
 @export var influence_hint: InfluenceHint = null
