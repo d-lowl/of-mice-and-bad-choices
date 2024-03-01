@@ -1,9 +1,6 @@
 name: CI - Godot 4 with GUT
 
-on:
-  pull_request:
-  push:
-  workflow_dispatch:
+on: {}
 
 jobs:
   execute-gut:
@@ -12,3 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Docker test
+        uses: ceceppa/godot-gut-ci@main
+        with:
+          godot_version: 4.2

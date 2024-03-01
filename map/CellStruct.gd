@@ -1,4 +1,4 @@
-extends RefCounted
+extends Node
 class_name CellStruct
 
 @export var influence_hint: InfluenceHint = null
@@ -85,3 +85,13 @@ func is_priority_colour(interest_colour: Cheese.CheeseColour):
 		if cheese_influence[colour] >= influence:
 			return false
 	return true
+	
+func get_max_colour() -> Cheese.CheeseColour:
+	var max = -1
+	var max_colour = null
+	for colour in cheese_influence:
+		if cheese_influence[colour] > max:
+			max = cheese_influence[colour]
+			max_colour = colour
+	
+	return max_colour
