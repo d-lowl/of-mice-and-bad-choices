@@ -26,26 +26,31 @@ cheese_inventory = {
 position = Vector2(96, 416)
 mouse_type = "elder"
 spawn_position = Vector2(96, 416)
+last_move = null
 
 [node name="MovingMouse" parent="." groups=["young_mouse"] instance=ExtResource("3_lwqe3")]
 unique_name_in_owner = true
 position = Vector2(480, 416)
 spawn_position = Vector2(480, 416)
+last_move = null
 
 [node name="ClearMouse" parent="." groups=["young_mouse"] instance=ExtResource("3_lwqe3")]
 unique_name_in_owner = true
 position = Vector2(288, 288)
 spawn_position = Vector2(288, 288)
+last_move = null
 
 [node name="LostMouse" parent="." groups=["young_mouse"] instance=ExtResource("3_lwqe3")]
 unique_name_in_owner = true
 position = Vector2(416, 288)
 spawn_position = Vector2(416, 288)
+last_move = null
 
 [node name="StuckMouse" parent="." groups=["young_mouse"] instance=ExtResource("3_lwqe3")]
 unique_name_in_owner = true
 position = Vector2(608, 416)
 spawn_position = Vector2(608, 416)
+last_move = null
 
 [node name="Tutorial2" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true

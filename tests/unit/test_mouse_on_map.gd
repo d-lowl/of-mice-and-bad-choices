@@ -63,9 +63,7 @@ func run_level_with_mouse_test_cases(map_path: String):
 				case.steps_left -= 1
 				if case.steps_left == 0:
 					case.done = true
-					assert_eq(case.get_mouse_position(), case.expected_position)
-				print(case, case.steps_left, case.done)
-	
+					assert_eq(case.get_mouse_position(), case.expected_position, case.get_parent().name+"/"+case.name)
 func test_mouse_repelled_by_cheese():
 	# Test that mice move away from the repelling cheese, when there's a path
 	run_level_with_mouse_test_cases("res://tests/unit/maps/test_map_repel.tscn")

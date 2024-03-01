@@ -194,7 +194,8 @@ func move_mice():
 		emit_signal("level_complete")
 
 func move_mouse(mouse: Mouse):
-	var mouse_location = SnapUtils.get_tile_map_position(mouse.position)
+	var mouse_location = mouse.get_grid_pos()
+	
 	if mouse_location.x <= 2:
 		mouse.visible = false
 		mice_left -= 1
@@ -206,18 +207,36 @@ func move_mouse(mouse: Mouse):
 		if cell.has_influence() and not cell.is_priority_colour(mouse.cheese_preference):
 			mouse.set_crying(true)
 			return
-		mouse_location.x -= 1
-		mouse.position = SnapUtils.set_tile_map_position(mouse_location)
+		mouse.move(Vector2.LEFT)
 		mouse.set_crying(false)
 	elif cell.is_priority_colour(mouse.cheese_preference):
 		var target = find_max_influence(mouse_location, mouse.cheese_preference)
 		var path = astar.get_id_path(mouse_location, target)
 		if path.size() > 1:
-			mouse.position = SnapUtils.set_tile_map_position(path[1])
+			mouse.move_to(path[1])
 			mouse.set_crying(false)
 		else:
 			mouse.set_crying(true)
+	elif not cell.is_priority_colour(mouse.cheese_preference):
+		var colour = cell.get_max_colour()
+		var target = find_max_influence(mouse_location, colour)
 		
+		var distance_here = astar.get_id_path(mouse_location, target).size()
+		var move_preference = mouse.get_move_preference()
+		var moved = false
+		for move in move_preference:
+			var candidate_cell = get_cell(mouse_location + move)
+			if candidate_cell == null or not candidate_cell.is_path:
+				continue
+			var distance_there = astar.get_id_path(mouse_location + move, target).size()
+			if distance_there > distance_here:
+				mouse.move(move)
+				moved = true
+				break
+		
+		mouse.set_crying(true)
+		
+
 
 func _on_step_timer_timeout():
 	if is_playing:
