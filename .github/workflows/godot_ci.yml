@@ -1,4 +1,4 @@
-name: CI - Godot 4
+name: CI - Godot 4 with GUT
 
 on:
 	pull_request:
