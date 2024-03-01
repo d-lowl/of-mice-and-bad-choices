@@ -51,11 +51,6 @@ func run_level_with_mouse_test_cases(map_path: String):
 	
 	var cases = MouseTestCase.cast_all_cases(get_tree().get_nodes_in_group(MouseTestCase.MTC_GROUP_NAME))
 	
-	cases.any(func(case): 
-		print(case.done)
-		return false
-	)
-	#for i in [0,1,2,3]:	
 	while (cases.any(func(case): return not case.done)):
 		map.move_mice()
 		for case in cases:
@@ -64,6 +59,8 @@ func run_level_with_mouse_test_cases(map_path: String):
 				if case.steps_left == 0:
 					case.done = true
 					assert_eq(case.get_mouse_position(), case.expected_position, case.get_parent().name+"/"+case.name)
+					
+		
 func test_mouse_repelled_by_cheese():
 	# Test that mice move away from the repelling cheese, when there's a path
 	run_level_with_mouse_test_cases("res://tests/unit/maps/test_map_repel.tscn")
