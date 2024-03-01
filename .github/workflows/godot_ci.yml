@@ -3,8 +3,6 @@ name: CI - Godot 4 with GUT
 on:
 	pull_request:
 	push:
-		branches:
-			- master
 	workflow_dispatch:
 
 jobs:
